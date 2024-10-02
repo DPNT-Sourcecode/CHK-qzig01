@@ -104,7 +104,10 @@ class TestCheckout:
         assert checkout("ABABCACCD") == 130 + 45 + (3 * 20) + (1 * 15)
 
     def test_many_with_bogof(self):
-        assert checkout("AAABBCCCDEE") == 130 + 30 + (3 * 20) + (1 * 15) + (2 * 40)
+        assert (
+            checkout("AAABBCCCDEEFFF")
+            == 130 + 30 + (3 * 20) + (1 * 15) + (2 * 40) + 2 * 10
+        )
 
     def test_e(self):
         assert checkout("E") == 40
@@ -135,3 +138,4 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
+
