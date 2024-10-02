@@ -11,6 +11,8 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
     for item, count in items.items():
         line_item = price_table.get_data_for(item)
         free_item_count, free_item = line_item.get_freebies(count)
+        group_discounts = line_item.get_group_discounts()
+        print(group_discounts)
         if free_item == "":
             continue
         if free_item not in free_items:
@@ -45,3 +47,4 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
