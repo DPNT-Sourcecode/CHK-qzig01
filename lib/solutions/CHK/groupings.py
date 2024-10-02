@@ -9,7 +9,7 @@ def compute_groupings_cost(to_look_for, items: Dict[str, int]):
         if di in items:
             found_di[di] = items[di]
     if len(found_di) == 0:
-        return 0, ("", 0)
+        return 0, [("", 0)]
     count_ordered = []
     for tlf in to_look_for:
         if tlf in found_di:
@@ -30,5 +30,3 @@ def compute_groupings_cost(to_look_for, items: Dict[str, int]):
             remaining_item_count = rem
             groupings_cost = whole * 45
             return groupings_cost, [(remaining_item_id, remaining_item_count)]
-
-

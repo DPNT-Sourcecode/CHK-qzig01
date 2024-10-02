@@ -8,13 +8,15 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
     checkout_value_per_item = {}
     free_items = {}
     to_look_for = ["Z", "Y", "X", "S", "T"]
-    groupings_cost, remaining_items = compute_groupings_cost(items)
+    groupings_cost, remaining_items = compute_groupings_cost(to_look_for, items)
     for tlf in to_look_for:
-        del items[tlf]
-    print(groupings_cost)
+        if tlf in items:
+            del items[tlf]
+
     for remain_id, remain_count in remaining_items:
-        items[remain_id] = remain_count
-    # compute bogofs
+        if remain_id != "":
+            items[remain_id] = remain_count
+
     for item, count in items.items():
         line_item = price_table.get_data_for(item)
         free_item_count, free_item = line_item.get_freebies(count)
@@ -38,7 +40,7 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
     for _, value in checkout_value_per_item.items():
         total += value
 
-    return total
+    return total + groupings_cost
 
 
 # noinspection PyUnusedLocal
@@ -54,8 +56,3 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
-
-
-
-
-
