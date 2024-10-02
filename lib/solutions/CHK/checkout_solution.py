@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Dict, List, Tuple
-from solutions.CHK.special_offer import Discount, new_special_offers, BoGoF
+from lib.solutions.CHK.special_offer import Discount, new_special_offers, BoGoF
 
 
 @dataclass
@@ -118,5 +118,6 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 

@@ -53,8 +53,11 @@ def new_special_offers(
     for so_str in sos_str.split(", "):
         if "for" in so_str:
             discounts.append(Discount.new(line_item_id, so_str))
-        if " get one " in so_str:
+        if "2E get one B free" in so_str:
+            bogofs.append(BoGoF(2, "B"))
+        if "2E get one B free" in so_str:
             bogofs.append(BoGoF(2, "B"))
 
     return discounts, bogofs
+
 
