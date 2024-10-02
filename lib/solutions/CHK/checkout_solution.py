@@ -18,11 +18,11 @@ class LineItemData:
             discounted_value = 0
             rem = count
             for so in self.discounts:
-                if rem >= so.multiple:
-                    special_offer_value, remaining_count = so.apply(rem)
+                if count >= so.multiple:
+                    special_offer_value, remaining_count = so.apply(count)
                     discounted_value += special_offer_value
                     rem -= remaining_count
-                    return discounted_value + rem * self.price
+                    return discounted_value + remaining_count * self.price
         return self.price * count
 
     @classmethod
@@ -88,6 +88,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 
