@@ -1,14 +1,9 @@
-from typing import Dict
+from typing import Dict, List
 
 
-def count_remainder(count_ordered):
-    remaining_count = 0
-    for item, count in count_ordered:
-        remaining_count += count
-    return remaining_count
-
-
-def compute_groupings_cost(to_look_for, items: Dict[str, int]):
+def compute_groupings_cost(
+    to_look_for: List[str], items: Dict[str, int], group_size: int, group_cost: int
+):
     # pull out discounted items STXYZ
 
     found_di = {}
@@ -27,13 +22,13 @@ def compute_groupings_cost(to_look_for, items: Dict[str, int]):
         s += id * c
 
     if len(count_ordered) > 0:
-        print(len(s), len(s) % 3, int(len(s) / 3))
-        rem_s = s[int(len(s) / 3) * 3 :]
-        groupings_cost = int(len(s) / 3) * 45
+        rem_s = s[int(len(s) / group_size) * group_size :]
+        groupings_cost = int(len(s) / group_size) * group_cost
         remaining_items = {c: rem_s.count(c) for c in rem_s}
 
         return groupings_cost, remaining_items
     return 0, {}
+
 
 
 
