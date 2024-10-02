@@ -106,6 +106,11 @@ class TestCheckout:
     def test_many_with_bogof(self):
         assert checkout("AAABBCCCDEE") == 130 + 30 + (3 * 20) + (1 * 15) + (2 * 40)
 
+    def test_e(self):
+        assert checkout("E") == 40
 
+    def test_ABCDE(self):
+        assert checkout("ABCDE") == 155
 
-
+    def test_AAAAA(self):
+        assert checkout("AAAAA") == 200

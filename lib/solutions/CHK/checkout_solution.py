@@ -118,11 +118,3 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
-
-
-
-
-
-
-
-
