@@ -67,10 +67,13 @@ def new_special_offers(
 ) -> Tuple[List[Discount], List[BoGoF]]:
     discounts: List[Discount] = []
     bogofs: List[BoGoF] = []
+    group_discounts = []
     if sos_str is None:
         return [], []
     if sos_str == "":
         return [], []
+    if "buy any" in sos_str:
+        return [], [], group_discounts
     for so_str in sos_str.split(", "):
         if "for" in so_str:
             discounts.append(Discount.new(line_item_id, so_str))
@@ -78,4 +81,5 @@ def new_special_offers(
             bogofs.append(new_bogof(line_item_id, sos_str=so_str))
 
     return discounts, bogofs
+
 
