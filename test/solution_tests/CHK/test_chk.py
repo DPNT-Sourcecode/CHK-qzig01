@@ -134,6 +134,8 @@ class TestF:
         assert line_item.has_bogofs
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
+        assert line_item.get_freebies(6) == (2, "F")
+
 
 
 
