@@ -54,7 +54,8 @@ class BoGoF:
 
 def new_bogof(line_item_id: str, sos_str: str):
     if sos_str.count(line_item_id) == 2:
-        return BoGoF(int(sos_str[0]), 1, line_item_id, 3)
+        min_needed = int(sos_str[0])
+        return BoGoF(min_needed, 1, line_item_id, min_needed + 1)
 
     c = int(sos_str[0])
     tokens = sos_str.split("get one")[1].split("free")[0].strip()
@@ -77,3 +78,4 @@ def new_special_offers(
             bogofs.append(new_bogof(line_item_id, sos_str=so_str))
 
     return discounts, bogofs
+

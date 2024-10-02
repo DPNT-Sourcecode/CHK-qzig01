@@ -150,6 +150,9 @@ class TestCheckout:
         assert checkout("K") == 80
         assert checkout("KK") == 150
 
+    def test_U(self):
+        assert checkout("UUU") == 120
+
 
 class TestF:
     def test_has_F(self):
@@ -164,3 +167,4 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
+
