@@ -10,11 +10,15 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
 
     # pull out discounted items STXYZ
     to_look_for = ["Z", "Y", "X", "S", "T"]
-    found_di = []
+    found_di = {}
     for di in to_look_for:
         if di in items:
-            found_di.append((di, items[di]))
-    print(found_di)
+            found_di[di] = items[di]
+    count_ordered = []
+    for tlf in to_look_for:
+        if tlf in found_di:
+            count_ordered.append((tlf, found_di[tlf]))
+    print(count_ordered)
 
     # compute bogofs
     for item, count in items.items():
@@ -77,3 +81,4 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
