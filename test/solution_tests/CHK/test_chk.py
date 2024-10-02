@@ -115,6 +115,12 @@ class TestCheckout:
     def test_AAAAA(self):
         assert checkout("AAAAA") == 200
 
+    def test_FFF(self):
+        assert checkout("FFF") == 20
+
+    def test_FFFFFF(self):
+        assert checkout("FFFFFF") == 40
+
 
 class TestF:
     def test_has_F(self):
@@ -126,6 +132,8 @@ class TestF:
             "F", price=10, special_offer_str="2F get one F free"
         )
         assert line_item.has_bogofs
-        assert line_item.get_freebies(2) == 0, ""
+        assert line_item.get_freebies(2) == (0, "")
+        assert line_item.get_freebies(3) == (1, "F")
+
 
 
