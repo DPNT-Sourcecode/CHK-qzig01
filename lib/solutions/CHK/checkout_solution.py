@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict
+from typing import Dict, List
 
 
 @dataclass
@@ -28,7 +28,14 @@ class SpecialOffer:
 class LineItemData:
 
     price: int
-    special_offer: str = ""
+    special_offer: SpecialOffer = ""
+
+    @classmethod
+    def new(cls, line_item_id: str, price: int, special_offer_str: str = None):
+        return cls(
+            price=price,
+            special_offer=SpecialOffer.new(line_item_id, special_offer_str or ""),
+        )
 
 
 @dataclass
@@ -53,16 +60,20 @@ class PriceTable:
 def load_price_table() -> PriceTable:
     return PriceTable(
         line_items={
-            "A": LineItemData(price=50, special_offer="3A for 130"),
-            "B": LineItemData(price=30, special_offer="2B for 45"),
-            "C": LineItemData(price=20),
-            "D": LineItemData(price=15),
+            "A": LineItemData.new("A", price=50, special_offer_str="3A for 130"),
+            "B": LineItemData.new("B", price=30, special_offer_str="2B for 45"),
+            "C": LineItemData.new("C", price=20),
+            "D": LineItemData.new("D", price=15),
         }
     )
 
 
 # noinspection PyUnusedLocal
 # skus = unicode string
-def checkout(skus):
-    raise NotImplementedError()
+def checkout(skus: List[str]) -> int:
+    price_table = load_price_table()
+    for sku in skus:
+        if not price_table.line_item_in_table(sku):
+            return -1
+
 
