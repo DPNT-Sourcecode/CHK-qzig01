@@ -28,7 +28,9 @@ def compute_groupings_cost(to_look_for, items: Dict[str, int]):
 
     print(count_ordered, count_remainder(count_ordered), s)
     if len(count_ordered) > 0:
-        print(len(count_ordered))
+        print(len(s), len(s) % 3, int(len(s) / 3))
+        print(s[int(len(s) / 3) * 3 :])
+
         # while have at least 3 in list, pluck out
         last_entry = count_ordered[-1]
         total_entries = 0
@@ -44,5 +46,6 @@ def compute_groupings_cost(to_look_for, items: Dict[str, int]):
             remaining_item_count = rem
             groupings_cost = whole * 45
             return groupings_cost, [(remaining_item_id, remaining_item_count)]
+
 
 
