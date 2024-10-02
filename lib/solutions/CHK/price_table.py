@@ -71,4 +71,3 @@ def load_from_pipe_sep() -> PriceTable:
         line_items[line_item_id] = LineItemData.new(line_item_id, price, sos)
 
     return PriceTable(line_items=line_items)
-

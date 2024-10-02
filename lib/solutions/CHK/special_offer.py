@@ -91,7 +91,3 @@ def new_special_offers(
             bogofs.append(new_bogof(line_item_id, sos_str=so_str))
 
     return discounts, bogofs, group_discounts
-
-
-
-

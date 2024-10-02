@@ -53,5 +53,3 @@ class LineItemData:
             bogofs=bogofs,
             group_discounts=group_discounts,
         )
-
-
