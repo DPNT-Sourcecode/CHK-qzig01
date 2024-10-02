@@ -3,6 +3,13 @@ from typing import Dict
 
 
 @dataclass
+class SpecialOffer:
+    special_offer_str: str = ""
+    price: int
+    multiple: int
+
+
+@dataclass
 class LineItemData:
 
     price: int
@@ -12,6 +19,16 @@ class LineItemData:
 @dataclass
 class PriceTable:
     line_items: Dict[str, LineItemData] = field(default_factory=dict)
+
+    def line_item_in_table(self, line_item_id: str) -> bool:
+        if line_item_id in self.line_items:
+            return True
+        return False
+
+    def get_data_for(self, line_item_id: str) -> LineItemData:
+        if self.line_item_in_table(line_item_id):
+            return self.line_items[line_item_id]
+        raise Exception(f"line item id not in price table {line_item_id}")
 
     @property
     def count_items(self):
@@ -33,6 +50,7 @@ def load_price_table() -> PriceTable:
 # skus = unicode string
 def checkout(skus):
     raise NotImplementedError()
+
 
 
 
