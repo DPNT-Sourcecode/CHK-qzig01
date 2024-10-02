@@ -134,7 +134,7 @@ class TestCheckout:
         assert checkout("AAAAAEEBAAABBFFF") == 475
 
     def test_FFABCDECBAABCABBAAAEEAAFF(self):
-        assert checkout("FFABCDECBAABCABBAAAEEAAFF") == 475
+        assert checkout("FFABCDECBAABCABBAAAEEAAFF") == 695
 
 
 class TestF:
@@ -150,5 +150,6 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
+
 
 

@@ -49,7 +49,7 @@ class BoGoF:
     def apply_subtract(self, count):
         if count < self.min_needed:
             return 0, ""
-        return self.subtract * (count / self.min_needed), self.free_item_id
+        return self.subtract * int(count / self.min_needed), self.free_item_id
 
 
 def new_special_offers(
@@ -70,3 +70,4 @@ def new_special_offers(
             bogofs.append(BoGoF(2, 1, "F", 3))
 
     return discounts, bogofs
+
