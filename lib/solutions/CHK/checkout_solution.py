@@ -8,6 +8,10 @@ class SpecialOffer:
     price: int = 0
     multiple: int = 0
 
+    @property
+    def has_offer(self):
+        return self.price != 0 and self.multiple != 0
+
     @classmethod
     def new(cls, line_item_id: str, sos: str):
         if sos == "":
@@ -61,3 +65,4 @@ def load_price_table() -> PriceTable:
 # skus = unicode string
 def checkout(skus):
     raise NotImplementedError()
+
