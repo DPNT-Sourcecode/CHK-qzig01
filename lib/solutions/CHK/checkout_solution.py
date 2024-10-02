@@ -32,7 +32,7 @@ class LineItemData:
 
     def get_freebies(self, count: int) -> Tuple[int, str]:
         if not self.has_bogofs:
-            return []
+            return 0, ""
         return self.bogofs[0].apply(count)
 
     @classmethod
@@ -84,8 +84,14 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
     for item, count in items.items():
         line_item = price_table.get_data_for(item)
         checkout_value += line_item.get_value(count)
-        free_item, free_item_count = line_item.get_freebies(count)
-        print(free_item, free_item_count)
+        if item not in checkout_value_per_item:
+            checkout_value_per_item[item] = 0
+        checkout_value_per_item[item] = checkout_value
+        free_item_count, free_item = line_item.get_freebies(count)
+        if free_item not in free_items:
+            free_items[free_item] = 0
+        free_items[free_item] += free_item_count
+    print(checkout_value_per_item, free_items)
     return checkout_value
 
 
@@ -102,4 +108,5 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
