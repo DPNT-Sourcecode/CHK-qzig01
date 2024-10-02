@@ -31,15 +31,19 @@ class SelfMultipleSpecialOffer:
 
 @dataclass
 class BoGoF:
-    def apply(self, count, free_items: List[str, int]):
-        pass
+    multiple: int = 0
+    free_item_id: str = ""
+
+    def apply(self, count):
+        if count >= self.multiple:
+            return int(count / self.multiple), count % self.multiple, self.free_item_id
 
 
 def new_special_offer(line_item_id: str, so_str: str) -> SelfMultipleSpecialOffer:
     if "for" in so_str:
         return SelfMultipleSpecialOffer.new(line_item_id, so_str)
     if " get one " in so_str:
-        raise NotImplementedError
+        raise BoGoF(2, "B")
 
     raise NotImplementedError
 
@@ -52,5 +56,6 @@ def new_special_offers(
     if sos_str == "":
         return []
     return [new_special_offer(line_item_id, so_str) for so_str in sos_str.split(", ")]
+
 
 
