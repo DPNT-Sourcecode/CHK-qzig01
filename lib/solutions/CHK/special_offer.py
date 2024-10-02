@@ -15,7 +15,7 @@ class Discount:
     def apply(self, count: int) -> Tuple[int, int]:
         rem = count % self.multiple
         whole = int(count / self.multiple)
-        return self.offer_price * whole, rem
+        return self.offer_price * whole, count - rem
 
     @classmethod
     def new(cls, line_item_id: str, sos: str):
@@ -54,3 +54,4 @@ def new_special_offers(line_item_id: str, sos_str: str) -> List[Discount]:
     if sos_str == "":
         return []
     return [new_special_offer(line_item_id, so_str) for so_str in sos_str.split(", ")]
+
