@@ -37,6 +37,8 @@ class BoGoF:
     def apply(self, count) -> Tuple[int, str]:
         if count >= self.multiple:
             return int(count / self.multiple), self.free_item_id
+        else:
+            return 0, ""
 
 
 def new_special_offers(
@@ -55,3 +57,4 @@ def new_special_offers(
             bogofs.append(BoGoF(2, "B"))
 
     return discounts, bogofs
+
