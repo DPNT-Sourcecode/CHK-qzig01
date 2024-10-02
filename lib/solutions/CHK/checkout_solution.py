@@ -7,6 +7,14 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
     checkout_value_per_item = {}
     free_items = {}
     group_discounts = []
+
+    # pull out discounted items STXYZ
+    discounted_items = [("Z", 0), ("Y", 0), ("X", 0), ("S", 0), ("T", 0)]
+    for i, di in enumerate(discounted_items):
+        if di[0] in items:
+            di[1] = items[di[0]]
+    print(discounted_items)
+
     # compute bogofs
     for item, count in items.items():
         line_item = price_table.get_data_for(item)
@@ -21,7 +29,7 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
             free_items[free_item] = 0
         free_items[free_item] += free_item_count
 
-    if len(group_discounts) > 0:
+    """if len(group_discounts) > 0:
         print(items, group_discounts)
         gd = group_discounts[0]
         groupable = {}
@@ -37,7 +45,7 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
             for o in orders:
                 if o in groupable:
                     peel.append((o, groupable[o]))
-        print(groupable, peel)
+        print(groupable, peel)"""
 
     for item, count in items.items():
         if item in free_items:
@@ -68,6 +76,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 
