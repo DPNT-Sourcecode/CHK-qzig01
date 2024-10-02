@@ -24,6 +24,10 @@ class TestComputeCheckoutValue:
         assert compute_checkout_value(price_table, {"A": 8}) == 200 + 130
         assert compute_checkout_value(price_table, {"A": 9}) == 200 + 130 + 50
 
+    def test_trigger_bogof(self):
+        price_table = load_price_table()
+        assert compute_checkout_value(price_table, {"B": 1, "E": 2}) == 40 + 40
+
     def test_compute(self):
         price_table = load_price_table()
 
@@ -98,3 +102,4 @@ class TestBogof:
         assert 2, "B" == line_item.get_freebies(4)
         assert 2, "B" == line_item.get_freebies(5)
         assert 3, "B" == line_item.get_freebies(6)
+

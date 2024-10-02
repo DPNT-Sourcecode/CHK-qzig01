@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict, List
+from typing import Dict, List, Tuple
 from lib.solutions.CHK.special_offer import Discount, new_special_offers, BoGoF
 
 
@@ -30,7 +30,7 @@ class LineItemData:
             return discounted_value + rem * self.price
         return self.price * count
 
-    def get_freebies(self, count: int) -> List[str]:
+    def get_freebies(self, count: int) -> Tuple[int, str]:
         if not self.has_bogofs:
             return []
         return self.bogofs[0].apply(count)
@@ -77,9 +77,15 @@ def load_price_table() -> PriceTable:
 
 def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> int:
     checkout_value = 0
+
+    checkout_value_per_item = {}
+    free_items = {}
+
     for item, count in items.items():
         line_item = price_table.get_data_for(item)
         checkout_value += line_item.get_value(count)
+        free_item, free_item_count = line_item.get_freebies(count)
+        print(free_item, free_item_count)
     return checkout_value
 
 
@@ -96,3 +102,4 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
