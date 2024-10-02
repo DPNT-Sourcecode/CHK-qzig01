@@ -49,7 +49,6 @@ def load_price_table() -> PriceTable:
 
 
 def load_from_pipe_sep() -> PriceTable:
-    pt = PriceTable()
 
     pipe_sep_str = """
     | A    | 50    | 3A for 130, 5A for 200 |
@@ -79,9 +78,17 @@ def load_from_pipe_sep() -> PriceTable:
     | Y    | 10    |                        |
     | Z    | 50    |                        |"""
 
-    tokens = pipe_sep_str.split("\n")
-    print(tokens)
+    lines = pipe_sep_str.split("\n")
+    line_items = {}
+    for line in lines:
+        tokens = line.split("|")
+        print(line, tokens)
+        line_item_id = tokens[0].strip()
+        price = int(tokens[1].strip())
+        sos = tokens[2].strip()
+        line_items[line_item_id] = LineItemData.new(line_item_id, price, sos)
 
-    return pt
+    return PriceTable(line_items=line_items)
+
 
 
