@@ -28,11 +28,16 @@ class SpecialOffer:
 class LineItemData:
 
     price: int
-    special_offer: SpecialOffer = ""
+    special_offer: SpecialOffer = SpecialOffer
+
+    @property
+    def has_special_offer(self) -> bool:
+        return False
 
     def get_value(self, count: int):
-        if count > self.special_offer.multiple:
-            return self.special_offer.price
+        if self.has_special_offer:
+            if count >= self.special_offer.multiple:
+                return self.special_offer.price
         return self.price * count
 
     @classmethod
@@ -95,6 +100,7 @@ def checkout(skus: List[str]) -> int:
 
     print(items_found)
     return compute_checkout_value(price_table, items_found)
+
 
 
 
