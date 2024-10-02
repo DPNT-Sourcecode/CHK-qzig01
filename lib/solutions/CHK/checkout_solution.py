@@ -30,17 +30,19 @@ class SpecialOffer:
 
 
 def new_special_offer(line_item_id: str, so_str: str) -> SpecialOffer:
-    if " for " in so_str:
+    if "for" in so_str:
         return SpecialOffer.new(line_item_id, so_str)
     if " get one " in so_str:
         raise NotImplementedError
+
     raise NotImplementedError
 
 
 def new_special_offers(line_item_id: str, sos_str: str) -> List[SpecialOffer]:
     if sos_str is None:
         return []
-    print(sos_str)
+    if sos_str == "":
+        return []
     return [new_special_offer(line_item_id, so_str) for so_str in sos_str.split(", ")]
 
 
@@ -121,6 +123,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 
