@@ -162,12 +162,12 @@ class TestCheckout:
         assert checkout("ZZZ") == 45
         assert checkout("YYY") == 45
         assert checkout("ZZY") == 45
-        assert checkout("ZYXS") == 45 + 20
+        assert checkout("ZYXS") == 45 + 17
         assert checkout("ZZZSX") == 45 + 20 + 17
         assert checkout("ZZZTTT") == 45 + 45
         assert checkout("ZZZTTTT") == 45 + 45 + 20
         assert checkout("ZZZTTTZ") == 45 + 45 + 20
-        assert checkout("STXS") == 62  # XSST = 45 + 20
+        assert checkout("STXS") == 62
         assert checkout("STXZ") == 62
         assert checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ") == 1602
 
@@ -185,6 +185,7 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
+
 
 
 

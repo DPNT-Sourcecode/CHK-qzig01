@@ -6,8 +6,9 @@ from .groupings import compute_groupings_cost
 def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> int:
 
     checkout_value_per_item = {}
-
-    to_look_for = ["Z", "Y", "X", "S", "T"]
+    # s20 T20 X17 Y20 Z21
+    # ZYTSX
+    to_look_for = ["Z", "Y", "S", "T", "X"]
     groupings_cost, remaining_items = compute_groupings_cost(to_look_for, items, 3, 45)
     for tlf in to_look_for:
         if tlf in items:
@@ -57,5 +58,6 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
