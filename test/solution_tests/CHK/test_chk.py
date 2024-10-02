@@ -109,6 +109,9 @@ class TestCheckout:
             == 130 + 30 + (3 * 20) + (1 * 15) + (2 * 40) + 2 * 10
         )
 
+    def test_blank(self):
+        assert checkout("") == 0
+
     def test_e(self):
         assert checkout("E") == 40
 
@@ -118,11 +121,20 @@ class TestCheckout:
     def test_AAAAA(self):
         assert checkout("AAAAA") == 200
 
+    def test_FF(self):
+        assert checkout("FF") == 20
+
     def test_FFF(self):
         assert checkout("FFF") == 20
 
     def test_FFFFFF(self):
         assert checkout("FFFFFF") == 40
+
+    def test_AAAAAEEBAAABBFFF(self):
+        assert checkout("AAAAAEEBAAABBFFF") == 475
+
+    def test_FFABCDECBAABCABBAAAEEAAFF(self):
+        assert checkout("FFABCDECBAABCABBAAAEEAAFF") == 475
 
 
 class TestF:
@@ -138,4 +150,5 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
+
 
