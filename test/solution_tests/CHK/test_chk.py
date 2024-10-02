@@ -121,3 +121,11 @@ class TestF:
         price_table = load_price_table()
         assert price_table.line_item_in_table("F")
 
+    def test(self):
+        line_item = LineItemData.new(
+            "F", price=10, special_offer_str="2F get one F free"
+        )
+        assert line_item.has_bogofs
+        assert line_item.get_freebies(2) == 0, ""
+
+

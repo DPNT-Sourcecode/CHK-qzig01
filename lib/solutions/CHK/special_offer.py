@@ -33,8 +33,11 @@ class Discount:
 class BoGoF:
     multiple: int = 0
     free_item_id: str = ""
+    min_needed: int = 0
 
     def apply(self, count) -> Tuple[int, str]:
+        if count < self.min_needed:
+            return 0, ""
         if count >= self.multiple:
             return int(count / self.multiple), self.free_item_id
         else:
@@ -54,11 +57,12 @@ def new_special_offers(
         if "for" in so_str:
             discounts.append(Discount.new(line_item_id, so_str))
         if "2E get one B free" in so_str:
-            bogofs.append(BoGoF(2, "B"))
+            bogofs.append(BoGoF(2, "B", 2))
         if "2F get one F free" in so_str:
-            bogofs.append(BoGoF(2, "F"))
+            bogofs.append(BoGoF(2, "F", 3))
 
     return discounts, bogofs
+
 
 
 
