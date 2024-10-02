@@ -5,8 +5,19 @@ from typing import Dict
 @dataclass
 class SpecialOffer:
     special_offer_str: str = ""
-    price: int
-    multiple: int
+    price: int = 0
+    multiple: int = 0
+
+    @classmethod
+    def new(cls, line_item_id: str, sos: str):
+        if sos == "":
+            return cls()
+        if line_item_id not in sos:
+            raise Exception("invalid")
+        tokens = sos.split(" for ")
+        multiple = int(tokens[0].replace(line_item_id, ""))
+        price = int(tokens[1])
+        return cls(special_offer_str=sos, price=price, multiple=multiple)
 
 
 @dataclass
@@ -50,7 +61,3 @@ def load_price_table() -> PriceTable:
 # skus = unicode string
 def checkout(skus):
     raise NotImplementedError()
-
-
-
-

@@ -7,6 +7,3 @@ class TestChk:
         assert table.count_items == 4
         assert table.line_item_in_table("A")
         assert not table.line_item_in_table("AB")
-
-
-
