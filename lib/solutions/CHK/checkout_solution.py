@@ -31,8 +31,9 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
                 if item not in groupable:
                     groupable[item] = 0
                 groupable[item] = count
-
+        orders = ["Z", "Y", "X", "S", "T"]
         print(groupable)
+
     for item, count in items.items():
         if item in free_items:
             count = count - free_items[item]
@@ -61,5 +62,6 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
