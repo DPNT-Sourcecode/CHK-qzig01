@@ -22,6 +22,7 @@ class TestComputeCheckoutValue:
         assert compute_checkout_value(price_table, {"A": 5}) == 200
         assert compute_checkout_value(price_table, {"A": 7}) == 200 + 2 * 50
         assert compute_checkout_value(price_table, {"A": 8}) == 200 + 130
+        assert compute_checkout_value(price_table, {"A": 9}) == 200 + 130 + 50
 
     def test_compute(self):
         price_table = load_price_table()
@@ -80,6 +81,7 @@ class TestMultipleDiscounts:
         assert line_item.get_value(6) == 200 + 50
         assert line_item.get_value(7) == 200 + 50 + 50
         assert line_item.get_value(8) == 200 + 130
+
 
 
 
