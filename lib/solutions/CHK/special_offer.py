@@ -70,8 +70,3 @@ def new_special_offers(
             bogofs.append(BoGoF(2, 1, "F", 3))
 
     return discounts, bogofs
-
-
-
-
-
