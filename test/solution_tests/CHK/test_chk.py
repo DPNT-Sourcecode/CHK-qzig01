@@ -16,6 +16,8 @@ class TestComputeCheckoutValue:
         price_table = load_price_table()
         assert compute_checkout_value(price_table, {"B": 2}) == 45
         assert compute_checkout_value(price_table, {"B": 4}) == 90
+        assert compute_checkout_value(price_table, {"B": 3}) == 45 + 30
+        assert compute_checkout_value(price_table, {"B": 5}) == 90 + 30
 
 
 class TestCheckout:
@@ -46,6 +48,7 @@ class TestSpecialOffer:
         input_so = ""
         so = SpecialOffer.new("A", input_so)
         assert not so.has_offer
+
 
 
 

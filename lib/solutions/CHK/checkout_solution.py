@@ -37,7 +37,9 @@ class LineItemData:
     def get_value(self, count: int):
         if self.has_special_offer:
             if count >= self.special_offer.multiple:
-                return self.special_offer.price
+                rem = count % self.special_offer.multiple
+                whole = int(count / self.special_offer.multiple)
+                return self.special_offer.price * whole + rem * self.price
         return self.price * count
 
     @classmethod
@@ -101,6 +103,7 @@ def checkout(skus: List[str]) -> int:
 
     print(items_found)
     return compute_checkout_value(price_table, items_found)
+
 
 
 
