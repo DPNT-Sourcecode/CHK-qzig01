@@ -1,5 +1,5 @@
-from dataclasses import dataclass, field
-from typing import Dict, List
+from dataclasses import dataclass
+from typing import List, Tuple
 
 
 @dataclass
@@ -12,10 +12,10 @@ class SelfMultipleSpecialOffer:
     def has_offer(self):
         return self.offer_price != 0 and self.multiple != 0
 
-    def apply(self, count: int, price: int) -> int:
+    def apply(self, count: int) -> Tuple[int, int]:
         rem = count % self.multiple
         whole = int(count / self.multiple)
-        return self.offer_price * whole + rem * price
+        return self.offer_price * whole, rem
 
     @classmethod
     def new(cls, line_item_id: str, sos: str):
@@ -46,3 +46,4 @@ def new_special_offers(
     if sos_str == "":
         return []
     return [new_special_offer(line_item_id, so_str) for so_str in sos_str.split(", ")]
+
