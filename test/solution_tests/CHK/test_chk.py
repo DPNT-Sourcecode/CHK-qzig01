@@ -69,5 +69,16 @@ class TestSpecialOffer:
 
 class TestMultipleDiscounts:
     def test_multiple(self):
-        line_item = Line
+        line_item = LineItemData.new(
+            "A", price=50, special_offer_str="3A for 130, 5A for 200"
+        )
+        assert line_item.get_value(1) == 50
+        assert line_item.get_value(2) == 2 * 50
+        assert line_item.get_value(3) == 130
+        assert line_item.get_value(4) == 130 + 50
+        assert line_item.get_value(5) == 200
+        assert line_item.get_value(6) == 200 + 50
+        assert line_item.get_value(7) == 200 + 50 + 50
+        assert line_item.get_value(8) == 200 + 130
+
 
