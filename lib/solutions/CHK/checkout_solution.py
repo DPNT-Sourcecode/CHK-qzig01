@@ -30,6 +30,11 @@ class LineItemData:
     price: int
     special_offer: SpecialOffer = ""
 
+    def get_value(self, count: int):
+        if count > self.special_offer.multiple:
+            return self.special_offer.price
+        return self.price * count
+
     @classmethod
     def new(cls, line_item_id: str, price: int, special_offer_str: str = None):
         return cls(
@@ -72,7 +77,7 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
     checkout_value = 0
     for item, count in items.items():
         line_item = price_table.get_data_for(item)
-        checkout_value += line_item.price * count
+        checkout_value += line_item.get_value(count)
     return checkout_value
 
 
@@ -90,6 +95,7 @@ def checkout(skus: List[str]) -> int:
 
     print(items_found)
     return compute_checkout_value(price_table, items_found)
+
 
 
 

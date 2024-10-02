@@ -12,6 +12,11 @@ class TestComputeCheckoutValue:
         items = {"A": 1, "B": 1, "C": 1, "D": 1}
         assert compute_checkout_value(price_table, items) == 115
 
+    def test_trigger_special_offer_on_b(self):
+        price_table = load_price_table()
+        items = {"B": 2}
+        assert compute_checkout_value(price_table, items) == 45
+
 
 class TestCheckout:
     def test_checkout_invalid_sku(self):
@@ -41,6 +46,7 @@ class TestSpecialOffer:
         input_so = ""
         so = SpecialOffer.new("A", input_so)
         assert not so.has_offer
+
 
 
 
