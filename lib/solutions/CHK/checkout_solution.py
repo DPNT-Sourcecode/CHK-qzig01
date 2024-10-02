@@ -18,7 +18,13 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
     for tlf in to_look_for:
         if tlf in found_di:
             count_ordered.append((tlf, found_di[tlf]))
-    print(count_ordered)
+
+    # while have at least 3 in list, pluck out
+    last_entry = count_ordered[len(count_ordered)]
+    total_entries = 0
+    for i, n in count_ordered:
+        total_entries += n
+    print(total_entries, last_entry)
 
     # compute bogofs
     for item, count in items.items():
@@ -81,4 +87,5 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
