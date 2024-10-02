@@ -19,7 +19,7 @@ class TestComputeCheckoutValue:
         assert compute_checkout_value(price_table, {"B": 3}) == 45 + 30
         assert compute_checkout_value(price_table, {"B": 5}) == 90 + 30
 
-    def test_compuute(self):
+    def test_compute(self):
         price_table = load_price_table()
 
         assert compute_checkout_value(
@@ -61,4 +61,5 @@ class TestSpecialOffer:
         input_so = ""
         so = SpecialOffer.new("A", input_so)
         assert not so.has_offer
+
 

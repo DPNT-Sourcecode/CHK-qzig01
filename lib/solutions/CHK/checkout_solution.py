@@ -30,10 +30,11 @@ class SpecialOffer:
 
 
 def new_special_offer(line_item_id: str, so_str: str) -> SpecialOffer:
-    if "for" in so_str:
+    if " for " in so_str:
         return SpecialOffer.new(line_item_id, so_str)
-    if "get one" in so_str:
+    if " get one " in so_str:
         raise NotImplementedError
+    raise NotImplementedError
 
 
 @dataclass
@@ -48,15 +49,20 @@ class LineItemData:
 
     def get_value(self, count: int):
         if self.has_special_offer:
-            if count >= self.special_offer.multiple:
-                return self.special_offer.apply(count)
+            for so in self.special_offers:
+                if count >= so.multiple:
+                    return so.apply(count)
         return self.price * count
 
     @classmethod
     def new(cls, line_item_id: str, price: int, special_offer_str: str = None):
+        special_offers = [
+            new_special_offer(line_item_id, so_str)
+            for so_str in special_offer_str.split(", ")
+        ]
         return cls(
             price=price,
-            special_offer=SpecialOffer.new(line_item_id, special_offer_str or ""),
+            special_offers=special_offers,
         )
 
 
@@ -111,5 +117,6 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
