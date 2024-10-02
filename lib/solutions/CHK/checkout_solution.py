@@ -76,14 +76,12 @@ def load_price_table() -> PriceTable:
 
 
 def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> int:
-    checkout_value = 0
 
     checkout_value_per_item = {}
     free_items = {}
 
     for item, count in items.items():
         line_item = price_table.get_data_for(item)
-        # checkout_value += line_item.get_value(count)
         if item not in checkout_value_per_item:
             checkout_value_per_item[item] = 0
         checkout_value_per_item[item] += line_item.get_value(count)
@@ -118,6 +116,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 

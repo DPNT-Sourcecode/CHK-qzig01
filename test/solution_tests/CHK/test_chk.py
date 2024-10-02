@@ -36,20 +36,6 @@ class TestComputeCheckoutValue:
         ) == 130 + 45 + (3 * 20) + (1 * 15)
 
 
-class TestCheckout:
-    def test_checkout_invalid_sku(self):
-        assert checkout("ABF") == -1
-
-    def test_one(self):
-        assert checkout("A") == 50
-
-    def test_many(self):
-        assert checkout("AAABBCCCD") == 130 + 45 + (3 * 20) + (1 * 15)
-
-    def test_many_random_order(self):
-        assert checkout("ABABCACCD") == 130 + 45 + (3 * 20) + (1 * 15)
-
-
 class TestChk:
     def test_load_price_table_ok(self):
         price_table = load_price_table()
@@ -102,4 +88,22 @@ class TestBogof:
         assert 2, "B" == line_item.get_freebies(4)
         assert 2, "B" == line_item.get_freebies(5)
         assert 3, "B" == line_item.get_freebies(6)
+
+
+class TestCheckout:
+    def test_checkout_invalid_sku(self):
+        assert checkout("ABF") == -1
+
+    def test_one(self):
+        assert checkout("A") == 50
+
+    def test_many(self):
+        assert checkout("AAABBCCCD") == 130 + 45 + (3 * 20) + (1 * 15)
+
+    def test_many_random_order(self):
+        assert checkout("ABABCACCD") == 130 + 45 + (3 * 20) + (1 * 15)
+
+    def test_many_with_bogof(self):
+        assert checkout("AAABBCCCDEE") == 130 + 45 + (3 * 20) + (1 * 15)
+
 
