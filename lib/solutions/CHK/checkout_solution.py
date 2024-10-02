@@ -7,15 +7,15 @@ from lib.solutions.CHK.special_offer import Discount, new_special_offers
 class LineItemData:
 
     price: int
-    special_offers: List[Discount] = field(default_factory=list)
+    discounts: List[Discount] = field(default_factory=list)
 
     @property
     def has_special_offer(self) -> bool:
-        return len(self.special_offers) > 0
+        return len(self.discounts) > 0
 
     def get_value(self, count: int):
         if self.has_special_offer:
-            for so in self.special_offers:
+            for so in self.discounts:
                 if count >= so.multiple:
                     special_offer_value, remaining_price = so.apply(count)
                     return special_offer_value + remaining_price * self.price
@@ -23,10 +23,11 @@ class LineItemData:
 
     @classmethod
     def new(cls, line_item_id: str, price: int, special_offer_str: str = None):
-
+        discounts = new_special_offers(line_item_id, special_offer_str or "")
+        discounts.sort(key=lambda x: x.multiple, reverse=True)
         return cls(
             price=price,
-            special_offers=new_special_offers(line_item_id, special_offer_str or ""),
+            discounts=discounts,
         )
 
 
@@ -83,5 +84,6 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
