@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Dict, List
-from lib.solutions.CHK.special_offer import Discount, new_special_offers
+from lib.solutions.CHK.special_offer import Discount, new_special_offers, BoGoF
 
 
 @dataclass
@@ -8,6 +8,7 @@ class LineItemData:
 
     price: int
     discounts: List[Discount] = field(default_factory=list)
+    bogofs: List[BoGoF] = field(default_factory=list)
 
     @property
     def has_special_offer(self) -> bool:
@@ -17,9 +18,9 @@ class LineItemData:
         if self.has_special_offer:
             discounted_value = 0
             rem = count
-            for so in self.discounts:
-                if rem >= so.multiple:
-                    special_offer_value, remaining_count = so.apply(rem)
+            for discount in self.discounts:
+                if rem >= discount.multiple:
+                    special_offer_value, remaining_count = discount.apply(rem)
                     discounted_value += special_offer_value
                     rem -= remaining_count
             return discounted_value + rem * self.price
@@ -27,12 +28,9 @@ class LineItemData:
 
     @classmethod
     def new(cls, line_item_id: str, price: int, special_offer_str: str = None):
-        discounts = new_special_offers(line_item_id, special_offer_str or "")
+        discounts, bogofs = new_special_offers(line_item_id, special_offer_str or "")
         discounts.sort(key=lambda x: x.multiple, reverse=True)
-        return cls(
-            price=price,
-            discounts=discounts,
-        )
+        return cls(price=price, discounts=discounts, bogofs=bogofs)
 
 
 @dataclass
@@ -88,6 +86,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 

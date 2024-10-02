@@ -39,19 +39,21 @@ class BoGoF:
             return int(count / self.multiple), count % self.multiple, self.free_item_id
 
 
-def new_special_offer(line_item_id: str, so_str: str) -> Discount:
-    if "for" in so_str:
-        return Discount.new(line_item_id, so_str)
-    if " get one " in so_str:
-        raise BoGoF(2, "B")
-
-    raise NotImplementedError
-
-
-def new_special_offers(line_item_id: str, sos_str: str) -> List[Discount]:
+def new_special_offers(
+    line_item_id: str, sos_str: str
+) -> Tuple[List[Discount], List[BoGoF]]:
+    discounts: List[Discount] = []
+    bogofs: List[BoGoF] = []
     if sos_str is None:
         return []
     if sos_str == "":
         return []
-    return [new_special_offer(line_item_id, so_str) for so_str in sos_str.split(", ")]
+    for so_str in sos_str.split(", "):
+        if "for" in so_str:
+            discounts.append(Discount.new(line_item_id, so_str))
+        if " get one " in so_str:
+            bogofs.append(BoGoF(2, "B"))
+
+    return discounts, bogofs
+
 
