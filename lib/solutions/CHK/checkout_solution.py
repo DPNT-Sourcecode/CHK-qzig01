@@ -1,31 +1,38 @@
 from dataclasses import dataclass, field
-from typing import List
+from typing import Dict
 
 
 @dataclass
-class LineItem:
-    item: str
+class LineItemData:
+
     price: int
     special_offer: str = ""
 
 
 @dataclass
 class PriceTable:
-    line_items: List[LineItem] = field(default_factory=list)
+    line_items: Dict[str, LineItemData] = field(default_factory=dict)
+
+    @property
+    def count_items(self):
+        return len(self.line_items)
 
 
-def load_price_table() -> List[LineItem]:
-    return [
-        LineItem(item="A", price=50, special_offer="3A for 130"),
-        LineItem(item="B", price=30, special_offer="2B for 45"),
-        LineItem(item="C", price=20),
-        LineItem(item="D", price=15),
-    ]
+def load_price_table() -> PriceTable:
+    return PriceTable(
+        line_items={
+            "A": LineItemData(price=50, special_offer="3A for 130"),
+            "B": LineItemData(price=30, special_offer="2B for 45"),
+            "C": LineItemData(price=20),
+            "D": LineItemData(price=15),
+        }
+    )
 
 
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
     raise NotImplementedError()
+
 
 
