@@ -1,67 +1,24 @@
 from typing import Dict, List
 from .price_table import PriceTable, load_price_table
+from .groupings import compute_groupings_cost
 
 
 def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> int:
 
     checkout_value_per_item = {}
     free_items = {}
-    group_discounts = []
-
-    # pull out discounted items STXYZ
-    to_look_for = ["Z", "Y", "X", "S", "T"]
-    found_di = {}
-    for di in to_look_for:
-        if di in items:
-            found_di[di] = items[di]
-    count_ordered = []
-    for tlf in to_look_for:
-        if tlf in found_di:
-            count_ordered.append((tlf, found_di[tlf]))
-    if len(count_ordered) > 0:
-        # while have at least 3 in list, pluck out
-        last_entry = count_ordered[-1]
-        total_entries = 0
-        for i, n in count_ordered:
-            total_entries += n
-        print(total_entries, last_entry)
-        if total_entries % 3 == 0:
-            cost_of_groupings = int(total_entries / 3) * 45
-        else:
-            rem = total_entries % 3
-            whole = int(total_entries / 3)
-
+    groupings_cost = compute_groupings_cost(items)
+    print(groupings_cost)
     # compute bogofs
     for item, count in items.items():
         line_item = price_table.get_data_for(item)
         free_item_count, free_item = line_item.get_freebies(count)
-        if line_item.get_group_discounts() is not None:
-            gd = line_item.get_group_discounts()
-            if gd not in group_discounts:
-                group_discounts.append(gd)
+
         if free_item == "":
             continue
         if free_item not in free_items:
             free_items[free_item] = 0
         free_items[free_item] += free_item_count
-
-    """if len(group_discounts) > 0:
-        print(items, group_discounts)
-        gd = group_discounts[0]
-        groupable = {}
-        for item, count in items.items():
-            if item in gd.line_item_ids:
-                print(item, count)
-                if item not in groupable:
-                    groupable[item] = 0
-                groupable[item] = count
-        orders = ["Z", "Y", "X", "S", "T"]
-        if len(groupable) > 0:
-            peel = []
-            for o in orders:
-                if o in groupable:
-                    peel.append((o, groupable[o]))
-        print(groupable, peel)"""
 
     for item, count in items.items():
         if item in free_items:
@@ -92,6 +49,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 
