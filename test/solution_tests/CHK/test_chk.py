@@ -40,7 +40,7 @@ class TestComputeCheckoutValue:
 class TestChk:
     def test_load_price_table_ok(self):
         price_table = load_price_table()
-        assert price_table.count_items == 6
+        assert price_table.count_items == 26
         assert price_table.line_item_in_table("A")
         assert not price_table.line_item_in_table("AB")
         assert price_table.line_item_in_table("E")
@@ -151,4 +151,5 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
+
 
