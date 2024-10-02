@@ -142,6 +142,14 @@ class TestCheckout:
         assert checkout("VV") == 90
         assert checkout("VVV") == 130
 
+    def test_RQ(self):
+        assert checkout("RRR") == 3 * 50
+        assert checkout("RRRQ") == 3 * 50
+
+    def test_K(self):
+        assert checkout("K") == 80
+        assert checkout("KK") == 150
+
 
 class TestF:
     def test_has_F(self):
@@ -156,6 +164,3 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
-
-
-
