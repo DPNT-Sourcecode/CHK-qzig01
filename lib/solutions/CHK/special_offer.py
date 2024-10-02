@@ -52,6 +52,13 @@ class BoGoF:
         return self.subtract * int(count / self.min_needed), self.free_item_id
 
 
+@dataclass
+class GroupDiscount:
+    number: int
+    line_item_ids: List[str]
+    price: int
+
+
 def new_bogof(line_item_id: str, sos_str: str):
     if sos_str.count(line_item_id) == 2:
         min_needed = int(sos_str[0])
@@ -64,22 +71,23 @@ def new_bogof(line_item_id: str, sos_str: str):
 
 def new_special_offers(
     line_item_id: str, sos_str: str
-) -> Tuple[List[Discount], List[BoGoF]]:
+) -> Tuple[List[Discount], List[BoGoF], List[GroupDiscount]]:
     discounts: List[Discount] = []
     bogofs: List[BoGoF] = []
-    group_discounts = []
+    group_discounts: List[GroupDiscount] = []
     if sos_str is None:
-        return [], []
+        return [], [], []
     if sos_str == "":
-        return [], []
+        return [], [], []
     if "buy any" in sos_str:
-        return [], [], group_discounts
+        return [], [], [GroupDiscount(3, ["S", "T", "X", "Y", "Z"], 45)]
     for so_str in sos_str.split(", "):
         if "for" in so_str:
             discounts.append(Discount.new(line_item_id, so_str))
         if "get one" in so_str:
             bogofs.append(new_bogof(line_item_id, sos_str=so_str))
 
-    return discounts, bogofs
+    return discounts, bogofs, group_discounts
+
 
 

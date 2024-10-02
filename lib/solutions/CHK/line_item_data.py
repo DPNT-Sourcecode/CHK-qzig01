@@ -37,6 +37,9 @@ class LineItemData:
 
     @classmethod
     def new(cls, line_item_id: str, price: int, special_offer_str: str = None):
-        discounts, bogofs = new_special_offers(line_item_id, special_offer_str or "")
+        discounts, bogofs, group_discounts = new_special_offers(
+            line_item_id, special_offer_str or ""
+        )
         discounts.sort(key=lambda x: x.multiple, reverse=True)
         return cls(price=price, discounts=discounts, bogofs=bogofs)
+
