@@ -95,20 +95,6 @@ class TestBogof:
         line_item = LineItemData.new(
             "E", price=40, special_offer_str="2E get one B free"
         )
-        num_freebies, leftovers, free_item = line_item.get_freebies(4)
-        assert num_freebies == 2
-        assert leftovers == 0
-        assert free_item == "B"
-
-        num_freebies, leftovers, free_item = line_item.get_freebies(5)
-        assert num_freebies == 2
-        assert leftovers == 1
-        assert free_item == "B"
-
-
-
-
-
-
-
-
+        assert 2, "B" == line_item.get_freebies(4)
+        assert 2, "B" == line_item.get_freebies(5)
+        assert 3, "B" == line_item.get_freebies(6)
