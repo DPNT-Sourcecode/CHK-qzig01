@@ -162,6 +162,7 @@ class TestCheckout:
         assert checkout("YYY") == 45
         assert checkout("ZZY") == 45
         assert checkout("ZYXS") == 45 + 20
+        assert checkout("ZZZSX") == 45 + 20 + 17
 
 
 class TestF:
@@ -177,3 +178,4 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
+
