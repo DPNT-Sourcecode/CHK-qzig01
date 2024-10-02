@@ -58,6 +58,9 @@ class GroupDiscount:
     line_item_ids: List[str]
     price: int
 
+    def __hash__(self) -> int:
+        return self.number + len(self.line_item_ids) + self.price
+
 
 def new_bogof(line_item_id: str, sos_str: str):
     if sos_str.count(line_item_id) == 2:
@@ -88,6 +91,7 @@ def new_special_offers(
             bogofs.append(new_bogof(line_item_id, sos_str=so_str))
 
     return discounts, bogofs, group_discounts
+
 
 
 
