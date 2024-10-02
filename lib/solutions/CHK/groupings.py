@@ -1,9 +1,9 @@
 from typing import Dict
 
 
-def compute_groupings_cost(items: Dict[str, int]):
+def compute_groupings_cost(to_look_for, items: Dict[str, int]):
     # pull out discounted items STXYZ
-    to_look_for = ["Z", "Y", "X", "S", "T"]
+
     found_di = {}
     for di in to_look_for:
         if di in items:
@@ -22,12 +22,13 @@ def compute_groupings_cost(items: Dict[str, int]):
             total_entries += n
         if total_entries % 3 == 0:
             cost_of_groupings = int(total_entries / 3) * 45
-            return cost_of_groupings, ("", 0)
+            return cost_of_groupings, [("", 0)]
         else:
             rem = total_entries % 3
             whole = int(total_entries / 3)
             remaining_item_id = last_entry[0]
             remaining_item_count = rem
             groupings_cost = whole * 45
-            return groupings_cost, (remaining_item_id, remaining_item_count)
+            return groupings_cost, [(remaining_item_id, remaining_item_count)]
+
 
