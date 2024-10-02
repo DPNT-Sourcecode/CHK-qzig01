@@ -84,7 +84,6 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
     checkout_value = 0
     for item, count in items.items():
         line_item = price_table.get_data_for(item)
-        print(count, line_item)
         checkout_value += line_item.get_value(count)
     return checkout_value
 
@@ -101,14 +100,4 @@ def checkout(skus: List[str]) -> int:
             items_found[sku] = 0
         items_found[sku] += 1
 
-    print(items_found)
     return compute_checkout_value(price_table, items_found)
-
-
-
-
-
-
-
-
-
