@@ -1,4 +1,12 @@
-from lib.solutions.CHK.checkout_solution import load_price_table, SpecialOffer
+from lib.solutions.CHK.checkout_solution import load_price_table, SpecialOffer, checkout
+
+
+class TestCheckout:
+    def test_checkout_invalid_sku(self):
+        assert checkout("ABF") == -1
+
+    def test_one(self):
+        assert checkout("A") == 50
 
 
 class TestChk:
@@ -21,4 +29,5 @@ class TestSpecialOffer:
         input_so = ""
         so = SpecialOffer.new("A", input_so)
         assert not so.has_offer
+
 

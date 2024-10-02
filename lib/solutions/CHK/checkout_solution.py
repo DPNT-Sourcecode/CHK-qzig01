@@ -68,12 +68,24 @@ def load_price_table() -> PriceTable:
     )
 
 
+def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> int:
+    pass
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus: List[str]) -> int:
     price_table = load_price_table()
+    items_found = {}
     for sku in skus:
         if not price_table.line_item_in_table(sku):
             return -1
+        if sku not in items_found:
+            items_found[sku] = 0
+        items_found[sku] += 1
+
+    print(items_found)
+    return compute_checkout_value(price_table, items_found)
+
 
 
