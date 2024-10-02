@@ -32,7 +32,7 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
                     groupable[item] = 0
                 groupable[item] = count
         orders = ["Z", "Y", "X", "S", "T"]
-        if len(groupable) >= 3:
+        if len(groupable) > 0:
             peel = []
             for o in orders:
                 if o in groupable:
@@ -67,6 +67,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 
