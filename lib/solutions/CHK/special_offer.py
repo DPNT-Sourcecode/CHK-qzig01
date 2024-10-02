@@ -55,9 +55,10 @@ def new_special_offers(
             discounts.append(Discount.new(line_item_id, so_str))
         if "2E get one B free" in so_str:
             bogofs.append(BoGoF(2, "B"))
-        if "2E get one B free" in so_str:
-            bogofs.append(BoGoF(2, "B"))
+        if "2F get one F free" in so_str:
+            bogofs.append(BoGoF(2, "F"))
 
     return discounts, bogofs
+
 
 

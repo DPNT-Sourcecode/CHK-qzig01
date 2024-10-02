@@ -39,7 +39,7 @@ class TestComputeCheckoutValue:
 class TestChk:
     def test_load_price_table_ok(self):
         price_table = load_price_table()
-        assert price_table.count_items == 5
+        assert price_table.count_items == 6
         assert price_table.line_item_in_table("A")
         assert not price_table.line_item_in_table("AB")
         assert price_table.line_item_in_table("E")
@@ -92,7 +92,7 @@ class TestBogof:
 
 class TestCheckout:
     def test_checkout_invalid_sku(self):
-        assert checkout("ABF") == -1
+        assert checkout("ABG") == -1
 
     def test_one(self):
         assert checkout("A") == 50
@@ -114,3 +114,10 @@ class TestCheckout:
 
     def test_AAAAA(self):
         assert checkout("AAAAA") == 200
+
+
+class TestF:
+    def test_has_F(self):
+        price_table = load_price_table()
+        assert price_table.line_item_in_table("F")
+

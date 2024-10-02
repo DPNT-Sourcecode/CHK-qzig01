@@ -71,6 +71,7 @@ def load_price_table() -> PriceTable:
             "C": LineItemData.new("C", price=20),
             "D": LineItemData.new("D", price=15),
             "E": LineItemData.new("E", price=40, special_offer_str="2E get one B free"),
+            "F": LineItemData.new("F", price=10, special_offer_str="2F get one F free"),
         }
     )
 
@@ -118,6 +119,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 
