@@ -26,7 +26,7 @@ class SpecialOffer:
         tokens = sos.split(" for ")
         multiple = int(tokens[0].replace(line_item_id, ""))
         price = int(tokens[1])
-        return cls(special_offer_str=sos, price=price, multiple=multiple)
+        return cls(special_offer_str=sos, offer_price=price, multiple=multiple)
 
 
 def new_special_offer(line_item_id: str, so_str: str) -> SpecialOffer:
@@ -35,6 +35,13 @@ def new_special_offer(line_item_id: str, so_str: str) -> SpecialOffer:
     if " get one " in so_str:
         raise NotImplementedError
     raise NotImplementedError
+
+
+def new_special_offers(line_item_id: str, sos_str: str) -> List[SpecialOffer]:
+    if sos_str is None:
+        return []
+    print(sos_str)
+    return [new_special_offer(line_item_id, so_str) for so_str in sos_str.split(", ")]
 
 
 @dataclass
@@ -56,13 +63,10 @@ class LineItemData:
 
     @classmethod
     def new(cls, line_item_id: str, price: int, special_offer_str: str = None):
-        special_offers = [
-            new_special_offer(line_item_id, so_str)
-            for so_str in special_offer_str.split(", ")
-        ]
+
         return cls(
             price=price,
-            special_offers=special_offers,
+            special_offers=new_special_offers(line_item_id, special_offer_str or ""),
         )
 
 
@@ -117,6 +121,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 
