@@ -11,11 +11,11 @@ class LineItemData:
     bogofs: List[BoGoF] = field(default_factory=list)
 
     @property
-    def has_special_offer(self) -> bool:
+    def has_discounts(self) -> bool:
         return len(self.discounts) > 0
 
     def get_value(self, count: int):
-        if self.has_special_offer:
+        if self.has_discounts:
             discounted_value = 0
             rem = count
             for discount in self.discounts:
@@ -61,6 +61,7 @@ def load_price_table() -> PriceTable:
             "B": LineItemData.new("B", price=30, special_offer_str="2B for 45"),
             "C": LineItemData.new("C", price=20),
             "D": LineItemData.new("D", price=15),
+            "E": LineItemData.new("E", price=40, special_offer_str="2E get one B free"),
         }
     )
 
@@ -86,6 +87,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 

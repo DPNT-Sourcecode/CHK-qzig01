@@ -49,9 +49,10 @@ class TestCheckout:
 class TestChk:
     def test_load_price_table_ok(self):
         price_table = load_price_table()
-        assert price_table.count_items == 4
+        assert price_table.count_items == 5
         assert price_table.line_item_in_table("A")
         assert not price_table.line_item_in_table("AB")
+        assert price_table.line_item_in_table("E")
 
 
 class TestSpecialOffer:
@@ -81,6 +82,14 @@ class TestMultipleDiscounts:
         assert line_item.get_value(6) == 200 + 50
         assert line_item.get_value(7) == 200 + 50 + 50
         assert line_item.get_value(8) == 200 + 130
+
+
+class TestBogof:
+    def test_with_bogof(self):
+        line_item = LineItemData.new(
+            "E", price=40, special_offer_str="2E get one B free"
+        )
+
 
 
 

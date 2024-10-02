@@ -45,9 +45,9 @@ def new_special_offers(
     discounts: List[Discount] = []
     bogofs: List[BoGoF] = []
     if sos_str is None:
-        return []
+        return [], []
     if sos_str == "":
-        return []
+        return [], []
     for so_str in sos_str.split(", "):
         if "for" in so_str:
             discounts.append(Discount.new(line_item_id, so_str))
@@ -55,5 +55,6 @@ def new_special_offers(
             bogofs.append(BoGoF(2, "B"))
 
     return discounts, bogofs
+
 
 
