@@ -1,6 +1,6 @@
 from lib.solutions.CHK.checkout_solution import (
     load_price_table,
-    SelfMultipleSpecialOffer,
+    Discount,
     checkout,
     compute_checkout_value,
 )
@@ -18,6 +18,7 @@ class TestComputeCheckoutValue:
         assert compute_checkout_value(price_table, {"B": 4}) == 90
         assert compute_checkout_value(price_table, {"B": 3}) == 45 + 30
         assert compute_checkout_value(price_table, {"B": 5}) == 90 + 30
+        assert compute_checkout_value(price_table, {"A": 5}) == 200
 
     def test_compute(self):
         price_table = load_price_table()
@@ -52,12 +53,13 @@ class TestChk:
 class TestSpecialOffer:
     def test_parse_ok(self):
         input_so = "3A for 130"
-        so = SelfMultipleSpecialOffer.new("A", input_so)
+        so = Discount.new("A", input_so)
         assert so.has_offer
         assert so.multiple == 3
         assert so.offer_price == 130
 
     def test_parse_ok_no_so(self):
         input_so = ""
-        so = SelfMultipleSpecialOffer.new("A", input_so)
+        so = Discount.new("A", input_so)
         assert not so.has_offer
+

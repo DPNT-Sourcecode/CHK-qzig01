@@ -3,7 +3,7 @@ from typing import List, Tuple
 
 
 @dataclass
-class SelfMultipleSpecialOffer:
+class Discount:
     special_offer_str: str = ""
     offer_price: int = 0
     multiple: int = 0
@@ -39,23 +39,22 @@ class BoGoF:
             return int(count / self.multiple), count % self.multiple, self.free_item_id
 
 
-def new_special_offer(line_item_id: str, so_str: str) -> SelfMultipleSpecialOffer:
+def new_special_offer(line_item_id: str, so_str: str) -> Discount:
     if "for" in so_str:
-        return SelfMultipleSpecialOffer.new(line_item_id, so_str)
+        return Discount.new(line_item_id, so_str)
     if " get one " in so_str:
         raise BoGoF(2, "B")
 
     raise NotImplementedError
 
 
-def new_special_offers(
-    line_item_id: str, sos_str: str
-) -> List[SelfMultipleSpecialOffer]:
+def new_special_offers(line_item_id: str, sos_str: str) -> List[Discount]:
     if sos_str is None:
         return []
     if sos_str == "":
         return []
     return [new_special_offer(line_item_id, so_str) for so_str in sos_str.split(", ")]
+
 
 
 

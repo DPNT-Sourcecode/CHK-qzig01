@@ -1,13 +1,13 @@
 from dataclasses import dataclass, field
 from typing import Dict, List
-from lib.solutions.CHK.special_offer import SelfMultipleSpecialOffer, new_special_offers
+from lib.solutions.CHK.special_offer import Discount, new_special_offers
 
 
 @dataclass
 class LineItemData:
 
     price: int
-    special_offers: List[SelfMultipleSpecialOffer] = field(default_factory=list)
+    special_offers: List[Discount] = field(default_factory=list)
 
     @property
     def has_special_offer(self) -> bool:
@@ -52,7 +52,9 @@ class PriceTable:
 def load_price_table() -> PriceTable:
     return PriceTable(
         line_items={
-            "A": LineItemData.new("A", price=50, special_offer_str="3A for 130"),
+            "A": LineItemData.new(
+                "A", price=50, special_offer_str="3A for 130, 5A for 200"
+            ),
             "B": LineItemData.new("B", price=30, special_offer_str="2B for 45"),
             "C": LineItemData.new("C", price=20),
             "D": LineItemData.new("D", price=15),
@@ -81,4 +83,5 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
