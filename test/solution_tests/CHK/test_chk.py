@@ -137,6 +137,11 @@ class TestCheckout:
     def test_FFABCDECBAABCABBAAAEEAAFF(self):
         assert checkout("FFABCDECBAABCABBAAAEEAAFF") == 695
 
+    def test_V(self):
+        assert checkout("V") == 50
+        assert checkout("VV") == 90
+        assert checkout("VVV") == 130
+
 
 class TestF:
     def test_has_F(self):
@@ -151,5 +156,6 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
+
 
 
