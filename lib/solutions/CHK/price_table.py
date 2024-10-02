@@ -23,29 +23,7 @@ class PriceTable:
 
 
 def load_price_table() -> PriceTable:
-    return PriceTable(
-        line_items={
-            "A": LineItemData.new(
-                "A", price=50, special_offer_str="3A for 130, 5A for 200"
-            ),
-            "B": LineItemData.new("B", price=30, special_offer_str="2B for 45"),
-            "C": LineItemData.new("C", price=20),
-            "D": LineItemData.new("D", price=15),
-            "E": LineItemData.new("E", price=40, special_offer_str="2E get one B free"),
-            "F": LineItemData.new("F", price=10, special_offer_str="2F get one F free"),
-            "G": LineItemData.new("G", price=20),
-            "H": LineItemData.new(
-                "H", price=10, special_offer_str="5H for 45, 10H for 80"
-            ),
-            "I": LineItemData.new("I", price=35),
-            "J": LineItemData.new("J", price=60),
-            "K": LineItemData.new("K", price=80, special_offer_str="2K for 150"),
-            "L": LineItemData.new("L", price=90),
-            "M": LineItemData.new("M", price=15),
-            "N": LineItemData.new("N", price=40, special_offer_str="3N get one M free"),
-            "O": LineItemData.new("O", price=10),
-        }
-    )
+    return load_from_pipe_sep()
 
 
 def load_from_pipe_sep() -> PriceTable:
@@ -93,6 +71,7 @@ def load_from_pipe_sep() -> PriceTable:
         line_items[line_item_id] = LineItemData.new(line_item_id, price, sos)
 
     return PriceTable(line_items=line_items)
+
 
 
 

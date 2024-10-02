@@ -93,7 +93,7 @@ class TestBogof:
 
 class TestCheckout:
     def test_checkout_invalid_sku(self):
-        assert checkout("ABG") == -1
+        assert checkout("ABx") == -1
 
     def test_one(self):
         assert checkout("A") == 50
@@ -151,3 +151,4 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
+
