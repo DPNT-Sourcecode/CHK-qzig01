@@ -80,15 +80,20 @@ def load_from_pipe_sep() -> PriceTable:
 
     lines = pipe_sep_str.split("\n")
     line_items = {}
+    first = True
     for line in lines:
+        if first:
+            first = False
+            continue
+        line = line.strip()
         tokens = line.split("|")
-        print(line, tokens)
-        line_item_id = tokens[0].strip()
-        price = int(tokens[1].strip())
-        sos = tokens[2].strip()
+        line_item_id = tokens[1].strip()
+        price = int(tokens[2].strip())
+        sos = tokens[3].strip()
         line_items[line_item_id] = LineItemData.new(line_item_id, price, sos)
 
     return PriceTable(line_items=line_items)
+
 
 
 
