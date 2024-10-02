@@ -12,10 +12,10 @@ class SpecialOffer:
     def has_offer(self):
         return self.offer_price != 0 and self.multiple != 0
 
-    def apply(self, count: int) -> int:
+    def apply(self, count: int, price: int) -> int:
         rem = count % self.multiple
         whole = int(count / self.multiple)
-        return self.offer_price * whole + rem * self.offer_price
+        return self.offer_price * whole + rem * price
 
     @classmethod
     def new(cls, line_item_id: str, sos: str):
@@ -60,7 +60,7 @@ class LineItemData:
         if self.has_special_offer:
             for so in self.special_offers:
                 if count >= so.multiple:
-                    return so.apply(count)
+                    return so.apply(count, self.price)
         return self.price * count
 
     @classmethod
@@ -123,6 +123,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 
