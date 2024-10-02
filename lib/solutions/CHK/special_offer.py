@@ -29,6 +29,12 @@ class SelfMultipleSpecialOffer:
         return cls(special_offer_str=sos, offer_price=price, multiple=multiple)
 
 
+@dataclass
+class BoGoF:
+    def apply(self, count, free_items: List[str, int]):
+        pass
+
+
 def new_special_offer(line_item_id: str, so_str: str) -> SelfMultipleSpecialOffer:
     if "for" in so_str:
         return SelfMultipleSpecialOffer.new(line_item_id, so_str)
@@ -46,4 +52,5 @@ def new_special_offers(
     if sos_str == "":
         return []
     return [new_special_offer(line_item_id, so_str) for so_str in sos_str.split(", ")]
+
 
