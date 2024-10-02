@@ -18,13 +18,18 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
     for tlf in to_look_for:
         if tlf in found_di:
             count_ordered.append((tlf, found_di[tlf]))
-
-    # while have at least 3 in list, pluck out
-    last_entry = count_ordered[len(count_ordered)]
-    total_entries = 0
-    for i, n in count_ordered:
-        total_entries += n
-    print(total_entries, last_entry)
+    if len(count_ordered) > 0:
+        # while have at least 3 in list, pluck out
+        last_entry = count_ordered[-1]
+        total_entries = 0
+        for i, n in count_ordered:
+            total_entries += n
+        print(total_entries, last_entry)
+        if total_entries % 3 == 0:
+            cost_of_groupings = int(total_entries / 3) * 45
+        else:
+            rem = total_entries % 3
+            whole = int(total_entries / 3)
 
     # compute bogofs
     for item, count in items.items():
@@ -87,5 +92,6 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
