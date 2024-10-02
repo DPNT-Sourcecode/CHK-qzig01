@@ -55,9 +55,10 @@ class TestSpecialOffer:
         so = SpecialOffer.new("A", input_so)
         assert so.has_offer
         assert so.multiple == 3
-        assert so.price == 130
+        assert so.offer_price == 130
 
     def test_parse_ok_no_so(self):
         input_so = ""
         so = SpecialOffer.new("A", input_so)
         assert not so.has_offer
+

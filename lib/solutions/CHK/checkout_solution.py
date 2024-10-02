@@ -5,12 +5,17 @@ from typing import Dict, List
 @dataclass
 class SpecialOffer:
     special_offer_str: str = ""
-    price: int = 0
+    offer_price: int = 0
     multiple: int = 0
 
     @property
     def has_offer(self):
-        return self.price != 0 and self.multiple != 0
+        return self.offer_price != 0 and self.multiple != 0
+
+    def apply(self, count: int) -> int:
+        rem = count % self.multiple
+        whole = int(count / self.multiple)
+        return self.offer_price * whole + rem * self.offer_price
 
     @classmethod
     def new(cls, line_item_id: str, sos: str):
@@ -28,18 +33,16 @@ class SpecialOffer:
 class LineItemData:
 
     price: int
-    special_offer: SpecialOffer = field(default_factory=SpecialOffer)
+    special_offers: List[SpecialOffer] = field(default_factory=list)
 
     @property
     def has_special_offer(self) -> bool:
-        return self.special_offer.has_offer
+        return len(self.special_offers) > 0
 
     def get_value(self, count: int):
         if self.has_special_offer:
             if count >= self.special_offer.multiple:
-                rem = count % self.special_offer.multiple
-                whole = int(count / self.special_offer.multiple)
-                return self.special_offer.price * whole + rem * self.price
+                return self.special_offer.apply(count)
         return self.price * count
 
     @classmethod
@@ -101,3 +104,4 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
