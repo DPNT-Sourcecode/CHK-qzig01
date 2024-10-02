@@ -155,7 +155,9 @@ class TestCheckout:
 
     def test_S(self):
         assert checkout("S") == 20
-        assert 1 == 2
+
+    def test_grouping(self):
+        assert checkout("STX") == 45
 
 
 class TestF:
@@ -171,6 +173,7 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
+
 
 
 
