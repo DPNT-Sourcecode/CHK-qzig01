@@ -18,7 +18,6 @@ class LineItemData:
             discounted_value = 0
             rem = count
             for so in self.discounts:
-                print(so)
                 if rem >= so.multiple:
                     special_offer_value, remaining_count = so.apply(rem)
                     discounted_value += special_offer_value
@@ -89,3 +88,4 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+

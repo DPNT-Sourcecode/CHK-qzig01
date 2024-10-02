@@ -3,6 +3,7 @@ from lib.solutions.CHK.checkout_solution import (
     Discount,
     checkout,
     compute_checkout_value,
+    LineItemData,
 )
 
 
@@ -64,3 +65,9 @@ class TestSpecialOffer:
         input_so = ""
         so = Discount.new("A", input_so)
         assert not so.has_offer
+
+
+class TestMultipleDiscounts:
+    def test_multiple(self):
+        line_item = Line
+
