@@ -20,7 +20,7 @@ def compute_groupings_cost(
     s = ""
     for id, c in count_ordered:
         s += id * c
-
+    print(s, count_ordered)
     if len(count_ordered) > 0:
         rem_s = s[int(len(s) / group_size) * group_size :]
         groupings_cost = int(len(s) / group_size) * group_cost
@@ -28,6 +28,7 @@ def compute_groupings_cost(
 
         return groupings_cost, remaining_items
     return 0, {}
+
 
 
 
