@@ -13,7 +13,7 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
         if tlf in items:
             del items[tlf]
 
-    for remain_id, remain_count in remaining_items:
+    for remain_id, remain_count in remaining_items.items():
         if remain_id != "":
             items[remain_id] = remain_count
 
@@ -56,3 +56,4 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
