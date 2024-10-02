@@ -1,10 +1,11 @@
 from lib.solutions.CHK.checkout_solution import (
-    load_price_table,
-    Discount,
     checkout,
     compute_checkout_value,
-    LineItemData,
 )
+from lib.solutions.CHK.special_offer import Discount
+
+from lib.solutions.CHK.price_table import load_price_table
+from lib.solutions.CHK.line_item_data import LineItemData
 
 
 class TestComputeCheckoutValue:
@@ -150,6 +151,3 @@ class TestF:
         assert line_item.get_freebies(2) == (0, "")
         assert line_item.get_freebies(3) == (1, "F")
         assert line_item.get_freebies(6) == (2, "F")
-
-
-

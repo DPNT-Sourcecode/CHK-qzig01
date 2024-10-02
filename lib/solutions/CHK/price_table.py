@@ -33,5 +33,11 @@ def load_price_table() -> PriceTable:
             "D": LineItemData.new("D", price=15),
             "E": LineItemData.new("E", price=40, special_offer_str="2E get one B free"),
             "F": LineItemData.new("F", price=10, special_offer_str="2F get one F free"),
+            "G": LineItemData.new("G", price=20),
+            "H": LineItemData.new(
+                "H", price=10, special_offer_str="5H for 45, 10H for 80"
+            ),
+            "I": LineItemData.new("I", price=20),
+            "G": LineItemData.new("G", price=20),
         }
     )

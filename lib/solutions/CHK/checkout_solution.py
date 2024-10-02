@@ -1,5 +1,5 @@
 from typing import Dict, List
-from .price_table import PriceTable
+from .price_table import PriceTable, load_price_table
 
 
 def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> int:
@@ -45,6 +45,3 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
-
-
-
