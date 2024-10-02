@@ -14,6 +14,10 @@ class LineItemData:
     def has_discounts(self) -> bool:
         return len(self.discounts) > 0
 
+    @property
+    def has_bogofs(self) -> bool:
+        return len(self.bogofs) > 0
+
     def get_value(self, count: int):
         if self.has_discounts:
             discounted_value = 0
@@ -25,6 +29,11 @@ class LineItemData:
                     rem -= remaining_count
             return discounted_value + rem * self.price
         return self.price * count
+
+    def get_freebies(self, count: int) -> List[str]:
+        if not self.has_bogofs:
+            return []
+        return self.bogofs[0].apply(count)
 
     @classmethod
     def new(cls, line_item_id: str, price: int, special_offer_str: str = None):
@@ -87,6 +96,7 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
+
 
 
 

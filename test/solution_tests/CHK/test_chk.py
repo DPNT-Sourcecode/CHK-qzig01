@@ -89,6 +89,15 @@ class TestBogof:
         line_item = LineItemData.new(
             "E", price=40, special_offer_str="2E get one B free"
         )
+        assert line_item.has_bogofs
+
+    def test_with_bogof(self):
+        line_item = LineItemData.new(
+            "E", price=40, special_offer_str="2E get one B free"
+        )
+        print(line_item.get_freebies(4))
+        assert 1 == 2
+
 
 
 
