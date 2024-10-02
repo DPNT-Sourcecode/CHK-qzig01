@@ -33,12 +33,9 @@ class LineItemData:
     def get_freebies(self, count: int) -> Tuple[int, str]:
         if not self.has_bogofs:
             return 0, ""
-        free_item_id = ""
-        c = count
-        while c > self.bogofs[0].min_needed:
-            free_item_id, c = self.bogofs[0].apply(c)
-        # return free_item_id, rem
-        return self.bogofs[0].apply(count)
+        count_free, free_item_id = self.bogofs[0].apply(count)
+        print(count_free, self.bogofs[0].min_needed)
+        return count_free, free_item_id
 
     @classmethod
     def new(cls, line_item_id: str, price: int, special_offer_str: str = None):
@@ -124,10 +121,3 @@ def checkout(skus: List[str]) -> int:
         items_found[sku] += 1
 
     return compute_checkout_value(price_table, items_found)
-
-
-
-
-
-
-
