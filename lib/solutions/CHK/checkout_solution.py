@@ -28,11 +28,11 @@ class SpecialOffer:
 class LineItemData:
 
     price: int
-    special_offer: SpecialOffer = SpecialOffer
+    special_offer: SpecialOffer = field(default_factory=SpecialOffer)
 
     @property
     def has_special_offer(self) -> bool:
-        return False
+        return self.special_offer.has_offer
 
     def get_value(self, count: int):
         if self.has_special_offer:
@@ -82,7 +82,7 @@ def compute_checkout_value(price_table: PriceTable, items: Dict[str, int]) -> in
     checkout_value = 0
     for item, count in items.items():
         line_item = price_table.get_data_for(item)
-        print(line_item)
+        print(count, line_item)
         checkout_value += line_item.get_value(count)
     return checkout_value
 
@@ -101,6 +101,7 @@ def checkout(skus: List[str]) -> int:
 
     print(items_found)
     return compute_checkout_value(price_table, items_found)
+
 
 
 
