@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import List, Tuple
-from .special_offer import Discount, new_special_offers, BoGoF
+from .special_offer import Discount, new_special_offers, BoGoF, GroupDiscount
 
 
 @dataclass
@@ -9,6 +9,7 @@ class LineItemData:
     price: int
     discounts: List[Discount] = field(default_factory=list)
     bogofs: List[BoGoF] = field(default_factory=list)
+    group_discounts: List[GroupDiscount] = field(default_factory=list)
 
     @property
     def has_discounts(self) -> bool:
@@ -35,11 +36,22 @@ class LineItemData:
             return 0, ""
         return self.bogofs[0].apply(count)
 
+    def get_group_discounts(self):
+        if len(self.group_discounts) == 0:
+            return None
+        return self.group_discounts[0]
+
     @classmethod
     def new(cls, line_item_id: str, price: int, special_offer_str: str = None):
         discounts, bogofs, group_discounts = new_special_offers(
             line_item_id, special_offer_str or ""
         )
         discounts.sort(key=lambda x: x.multiple, reverse=True)
-        return cls(price=price, discounts=discounts, bogofs=bogofs)
+        return cls(
+            price=price,
+            discounts=discounts,
+            bogofs=bogofs,
+            group_discounts=group_discounts,
+        )
+
 
