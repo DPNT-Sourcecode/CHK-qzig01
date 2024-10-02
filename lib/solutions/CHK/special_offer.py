@@ -56,10 +56,10 @@ def new_bogof(line_item_id: str, sos_str: str):
     if sos_str.count(line_item_id) == 2:
         return BoGoF(int(sos_str[0]), 1, line_item_id, 3)
 
-    if "2E get one B free" in sos_str:
-        return BoGoF(2, 0, "B", 2)
-    if "2F get one F free" in sos_str:
-        return BoGoF(2, 1, "F", 3)
+    c = int(sos_str[0])
+    tokens = sos_str.split("get one")[1].split("free")[0]
+    return BoGoF(c, 0, tokens, c)
+    # if "2E get one B free" in sos_str:
 
 
 def new_special_offers(
@@ -78,5 +78,6 @@ def new_special_offers(
             bogofs.append(new_bogof(line_item_id, sos_str=so_str))
 
     return discounts, bogofs
+
 
 
